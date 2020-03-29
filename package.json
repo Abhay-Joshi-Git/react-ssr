@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm-run-all --parallel dev:*",
+    "start": "npm-run-all --parallel dev:*",
     "dev:server-build": "webpack --config ./config/webpack-server.config.js --watch",
     "dev:client-build": "webpack --config ./config/webpack-client.config.js --watch",
-    "dev:serve": "mkdir -p build && touch build/bundle.js && nodemon build/bundle.js --watch build" 
+    "dev:serve": "mkdir -p build && touch build/bundle.js && nodemon build/bundle.js --watch build"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
     "npm-run-all": "^4.1.5",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2"
   }
 }
