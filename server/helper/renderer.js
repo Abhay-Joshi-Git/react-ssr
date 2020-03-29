@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDom from 'react-dom/server';
-import Home from '../../client/components/Home';
+import { StaticRouter } from 'react-router-dom';
+import Routes from '../../client/routes';
 
-const renderer = () => {
-  const app = ReactDom.renderToString(<Home />);
+const renderer = (req) => {
+  const App = () => (
+    <StaticRouter location={req.path} context={{}}>
+      <Routes />
+    </StaticRouter>
+  );
+  
+  const app = ReactDom.renderToString(<App />);
   return `
       <!DOCTYPE html>
         <html>
