@@ -31,17 +31,3 @@ const renderer = (req, values) => {
 }
 
 export default renderer;
-
-  // const app = ReactDom.renderToString(<Home />);
-  // export default `
-  //     <!DOCTYPE html>
-  //       <html>
-  //         <head>
-  //           <title>SSR</title>
-  //         <head>
-  //         <body>
-  //           <div id="root">${app}</div>
-  //           <script src="bundle.js"></script>
-  //         </body>
-  //       </html>
-  //   `;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import httpClient from '../http-client';
-import dataBridge from '../components/data-bridge';
 
 const fetchUsers = async () => {
   const response = await httpClient.get('users');
@@ -12,7 +11,6 @@ const Users = ({ users: usersData }) => {
   const [users, setUsers] = useState(data);
   useEffect(() => {
     fetchUsers().then((data) => {
-      console.log('polo');
       setUsers(data.users);
     })
   }, []);
