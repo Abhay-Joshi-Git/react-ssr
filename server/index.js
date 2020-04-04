@@ -25,7 +25,7 @@ app.get('*', (req, res) => {
     return fetchData ? fetchData() : null;
   })
   Promise.all(promises).then((values) => {
-    res.send(renderer(req, values[0]));
+    res.send(renderer(req, { values }));
   })
 });
 
