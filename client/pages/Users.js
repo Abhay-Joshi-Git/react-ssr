@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import httpClient from '../http-client';
+import { getHttpClient } from '../http-client';
 
 const fetchUsers = async () => {
-  const response = await httpClient.get('users');
+  const response = await getHttpClient().get('users');
   return { users: response.data };
 };
 

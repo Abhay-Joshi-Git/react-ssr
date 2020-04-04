@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-const httpClient = axios.create({
-  baseURL: 'https://react-ssr-api.herokuapp.com/'
-});
+let httpClient;
 
-export default httpClient;
+export const configureHTTPClient = (baseURL) => {
+  httpClient = axios.create({ baseURL });
+};
+
+export const getHttpClient = () => httpClient;
