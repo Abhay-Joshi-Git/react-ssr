@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderRoutes } from 'react-router-config';
 import Header from './components/Header';
+import { getHttpClient } from './http-client';
 
 const fetchCurrentUser = async () => {
   try {
@@ -11,12 +12,15 @@ const fetchCurrentUser = async () => {
   }
 };
 
-const Layout = (props) => (
-  <div>
-    <Header />
-    {renderRoutes(props.route.routes, { values: props.values ? props.values.slice(1) : [] })}
-  </div>
-);
+const Layout = (props) => {
+  const { values } = props;
+  return (
+    <div>
+      <Header currentUser={values && values.currentUser} />
+      {renderRoutes(props.route.routes, values)}
+    </div>
+  )
+};
 
 export default {
   component: Layout,

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getHttpClient } from '../http-client';
+import { getInitialDataValue } from '../services/initialData';
 
 const fetchUsers = async () => {
   try {
@@ -10,10 +11,12 @@ const fetchUsers = async () => {
   }
 };
 
-const Users = ({ values }) => {
+const Users = ({ users: usersData }) => {
   let data = [];
-  const usersData = values[0] ? values[0].users: null;
-  data = usersData || ((window && window.INITIAL_DATA) ? window.INITIAL_DATA.users: []) || [];
+  data = usersData;
+  if (!data) {
+    data = getInitialDataValue('users', []);
+  }
   const [users, setUsers] = useState(data);
   useEffect(() => {
     fetchUsers().then((data) => {

@@ -6,13 +6,6 @@ import Routes from '../../client/routes';
 import serialize from 'serialize-javascript';
 
 const renderer = (req, data) => {
-  const App = () => (
-    <StaticRouter location={req.path} context={{}}>
-      {renderRoutes(Routes, data)}
-    </StaticRouter>
-  );
-
-  const app = ReactDom.renderToString(<App />);
   const initialData = data.values.reduce((obj, val) => {
     if (val) {
       let key = Object.keys(val)[0];
@@ -20,11 +13,21 @@ const renderer = (req, data) => {
     }
     return obj;
   }, {});
+
+  const App = () => (
+    <StaticRouter location={req.path} context={{}}>
+      {renderRoutes(Routes, { values: initialData })}
+    </StaticRouter>
+  );
+
+  const app = ReactDom.renderToString(<App />);  
   return `
       <!DOCTYPE html>
         <html>
           <head>
             <title>SSR</title>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <head>
           <body>
             <div id="root">${app}</div>

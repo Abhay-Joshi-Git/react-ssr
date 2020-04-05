@@ -3,23 +3,25 @@ import express from 'express';
 import proxy from 'express-http-proxy';
 import renderer from './helper/renderer';
 import { matchRoutes } from 'react-router-config';
-import { configureHTTPClient } from '../client/http-client';
+import cookieParser from 'cookie-parser';
+import { configureHTTPClient, setCookie } from '../client/http-client';
 import Routes from '../client/routes';
 
-const baseURL = 'https://react-ssr-api.herokuapp.com/';
-configureHTTPClient(baseURL);
+const baseURL = 'http://react-ssr-api.herokuapp.com/';
 
 const app = express();
 
+app.use(cookieParser());
 app.use('/api', proxy(baseURL, {
   proxyReqOptDecorator(opts) {
-    opts.headers['x-forwarded-host'] = 'localhost:3000';
+    opts.headers['x-forwarded-host'] = 'localhost:3000/';
     return opts;
   }
 }));
 app.use(express.static('public'));
 
 app.get('*', (req, res) => {
+  configureHTTPClient(baseURL, req.cookies);
   const matches = matchRoutes(Routes, req.path);
   const promises = matches.map(({route: { fetchData }}) => {
     return fetchData ? fetchData() : null;
@@ -29,6 +31,6 @@ app.get('*', (req, res) => {
   })
 });
 
-app.listen(8080, () => {
-  console.log('app listening on 8080');
+app.listen(3000, () => {
+  console.log('app listening on 3000');
 });
