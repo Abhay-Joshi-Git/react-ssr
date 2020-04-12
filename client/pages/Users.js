@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { getHttpClient } from '../http-client';
 import { getInitialDataValue } from '../services/initialData';
 
@@ -24,6 +25,16 @@ const Users = ({ users: usersData }) => {
     })
   }, []);
 
+  const renderHeaderTags = () => {
+    const usersCount = users ? users.length: 0;
+    return (
+      <Helmet>
+        <title>{`Users (${usersCount})`}</title>
+        <meta property="og:title" content={`Users ${usersCount}`} />
+      </Helmet>
+    )
+  }
+
   const renderUsers = () => {
     return Array.isArray(users)
     ? users.map((user) => (
@@ -34,6 +45,7 @@ const Users = ({ users: usersData }) => {
 
   return (
     <div>
+      {renderHeaderTags()}
       list of users:
       <ul>{renderUsers()}</ul>
     </div>

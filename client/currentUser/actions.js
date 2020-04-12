@@ -3,7 +3,6 @@ export const CurrentUserActionTypes = {
 };
 
 export const setCurrentUser = (user) => {
-  console.log('setting current User ...', user);
   return {
     type: CurrentUserActionTypes.SET_CURRENT_USER,
     payload: user

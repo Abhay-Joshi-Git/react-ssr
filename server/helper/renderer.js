@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
+import { Helmet } from 'react-helmet';
 import Routes from '../../client/routes';
 import serialize from 'serialize-javascript';
 
@@ -20,12 +21,15 @@ const renderer = (req, data) => {
     </StaticRouter>
   );
 
-  const app = ReactDom.renderToString(<RootApp />);  
+  const app = ReactDom.renderToString(<RootApp />);
+  const helmet = Helmet.renderStatic();
+
   return `
       <!DOCTYPE html>
         <html>
           <head>
-            <title>SSR</title>
+            ${helmet.title.toString()}
+            ${helmet.meta.toString()}
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
           <head>
