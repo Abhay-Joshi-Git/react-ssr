@@ -4,7 +4,7 @@ import proxy from 'express-http-proxy';
 import renderer from './helper/renderer';
 import { matchRoutes } from 'react-router-config';
 import cookieParser from 'cookie-parser';
-import { configureHTTPClient, setCookie } from '../client/http-client';
+import { configureHTTPClient } from '../client/http-client';
 import Routes from '../client/routes';
 import RouteNotFound from '../client/pages/RouteNotFound';
 

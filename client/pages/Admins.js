@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getHttpClient } from '../http-client';
 import { getInitialDataValue } from '../services/initialData';
+import authCheck from '../components/authCheck';
 
 const fetchAdmins = async () => {
   try {
@@ -41,6 +42,6 @@ const Admins = ({ admins: adminsData }) => {
 }
 
 export default {
-  component: Admins,
+  component: authCheck(Admins),
   fetchData: fetchAdmins
 };
