@@ -14,13 +14,13 @@ const renderer = (req, data) => {
     return obj;
   }, {});
 
-  const App = () => (
+  const RootApp = () => (
     <StaticRouter location={req.path} context={{}}>
       {renderRoutes(Routes, { values: initialData })}
     </StaticRouter>
   );
 
-  const app = ReactDom.renderToString(<App />);  
+  const app = ReactDom.renderToString(<RootApp />);  
   return `
       <!DOCTYPE html>
         <html>

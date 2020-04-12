@@ -12,7 +12,7 @@ const fetchCurrentUser = async () => {
   }
 };
 
-const Layout = (props) => {
+const App = (props) => {
   const { values } = props;
   return (
     <div>
@@ -23,6 +23,6 @@ const Layout = (props) => {
 };
 
 export default {
-  component: Layout,
+  component: App,
   fetchData: fetchCurrentUser,
 };

@@ -1,6 +1,7 @@
 import Home from './pages/Home';
 import Users from './pages/Users';
-import Layout from './Layout';
+import App from './App';
+import RouteNotFound from './pages/RouteNotFound';
 
 const childRoutes = [
   {
@@ -11,12 +12,15 @@ const childRoutes = [
   {
     ...Users,
     path: "/users"
+  },
+  {
+    ...RouteNotFound
   }
 ];
 
 const routes = [
   {
-    ...Layout,
+    ...App,
     routes: childRoutes,
   }
 ];

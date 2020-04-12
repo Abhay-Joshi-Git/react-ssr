@@ -6,6 +6,7 @@ import { matchRoutes } from 'react-router-config';
 import cookieParser from 'cookie-parser';
 import { configureHTTPClient, setCookie } from '../client/http-client';
 import Routes from '../client/routes';
+import RouteNotFound from '../client/pages/RouteNotFound';
 
 const baseURL = 'http://react-ssr-api.herokuapp.com/';
 
@@ -25,10 +26,16 @@ app.get('*', (req, res) => {
   const matches = matchRoutes(Routes, req.path);
   const promises = matches.map(({route: { fetchData }}) => {
     return fetchData ? fetchData() : null;
+  });
+  const notFound = matches.filter(match => {
+    return match.route.component === RouteNotFound.component
   })
+  if (notFound.length) {
+    res.status(404);
+  }
   Promise.all(promises).then((values) => {
     res.send(renderer(req, { values }));
-  })
+  });
 });
 
 app.listen(3000, () => {

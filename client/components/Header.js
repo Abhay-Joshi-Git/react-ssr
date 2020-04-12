@@ -54,6 +54,11 @@ const Header = ({ currentUser }) => {
               Users
             </Button>
           </NavLink>
+          <NavLink to="/admins" className={styles.navLink}>
+            <Button>
+              Admins
+            </Button>
+          </NavLink>
           {renderAuthButton()}
         </Box>
       </Toolbar>
