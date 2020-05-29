@@ -5,6 +5,7 @@ import { renderRoutes } from 'react-router-config';
 import { Helmet } from 'react-helmet';
 import Routes from '../../client/routes';
 import serialize from 'serialize-javascript';
+import { ServerStyleSheets } from '@material-ui/core/styles';
 
 const renderer = (req, data) => {
   const initialData = data.values.reduce((obj, val) => {
@@ -15,13 +16,16 @@ const renderer = (req, data) => {
     return obj;
   }, {});
 
+  const sheets = new ServerStyleSheets();
+
   const RootApp = () => (
     <StaticRouter location={req.path} context={{}}>
       {renderRoutes(Routes, { values: initialData })}
     </StaticRouter>
   );
 
-  const app = ReactDom.renderToString(<RootApp />);
+  const app = ReactDom.renderToString(sheets.collect(<RootApp />));
+  const cssString = sheets.toString();
   const helmet = Helmet.renderStatic();
 
   return `
@@ -32,6 +36,7 @@ const renderer = (req, data) => {
             ${helmet.meta.toString()}
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+            <style id="jss-server-side">${cssString}</style>
           <head>
           <body>
             <div id="root">${app}</div>

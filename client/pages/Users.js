@@ -20,9 +20,11 @@ const Users = ({ users: usersData }) => {
   }
   const [users, setUsers] = useState(data);
   useEffect(() => {
-    fetchUsers().then((data) => {
-      setUsers(data.users);
-    })
+    if (!data.length) {
+      fetchUsers().then((data) => {
+        setUsers(data.users);
+      })
+    }
   }, []);
 
   const renderHeaderTags = () => {
